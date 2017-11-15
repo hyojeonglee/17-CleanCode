@@ -56,7 +56,7 @@ public class Sorter {
 	
 	private static void executeMenu(String answer) throws IOException {
 		if (answer.equals(INPUT))
-			receiveInput();
+			receiveAndSetInput();
 		else if (answer.equals(INCREASING_ORDER)) {
 			sortIncreasingOrder();
 			printSortedNumbers();
@@ -67,7 +67,7 @@ public class Sorter {
 		}
 	}
 	
-	private static void receiveInput() throws IOException {
+	private static void receiveAndSetInput() throws IOException {
 		try {
 			receiveVariables();
 			setInputNumbers();
