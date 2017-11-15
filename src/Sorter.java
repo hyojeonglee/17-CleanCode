@@ -118,10 +118,8 @@ public class Sorter {
 	}
 
 	private static void sortDecreasingOrder() {
-		if (!numberList.isEmpty()) {
-			sortIncreasingOrder();
-			Collections.reverse(numberList);
-		}
+		sortIncreasingOrder();
+		Collections.reverse(numberList);
 	}
 	
 	private static void printSortedNumbers() {
