@@ -17,7 +17,7 @@ public class Sorter {
 	
 	public static void main(String[] args) throws IOException {
 		Sorter sorter = new Sorter();
-		String answer = new String();
+		String answer = new String(); // TODO
 		while (!answer.equals(QUIT)) {
 			sorter.displayMenu();
 			answer = reader.readLine();
@@ -44,7 +44,7 @@ public class Sorter {
 			else
 				return false;
 		} catch (NumberFormatException exception) {
-			return true;
+			return true; // TODO
 		}
 	}
 	
@@ -57,7 +57,7 @@ public class Sorter {
 	
 	private void executeMenu(String answer) throws IOException {
 		if (answer.equals(INPUT))
-			receiveAndSetInput();
+			receiveAndSetInput(); // TODO
 		else if (answer.equals(INCREASING_ORDER)) {
 			sortIncreasingOrder();
 			printSortedNumbers();
@@ -70,7 +70,7 @@ public class Sorter {
 	
 	private void receiveAndSetInput() throws IOException {
 		try {
-			receiveVariables();
+			receiveVariables(); // TODO
 			setInputNumbers();
 		} catch (NumberFormatException exception) {
 			System.out.println(WARNING_MESSAGE);
@@ -126,5 +126,6 @@ public class Sorter {
 	private void printSortedNumbers() {
 		for (int number : numberList)
 			System.out.print(number + " ");
+		System.out.println();
 	}
 }
