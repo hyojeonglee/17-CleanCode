@@ -6,28 +6,29 @@ import java.io.IOException;
 
 public class Sorter {
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	private static ArrayList<Integer> numberList = new ArrayList<Integer>();
-	private static int numberOfNumbers;
-	private static String[] numberStrings;
-	private static final String INPUT = "1";
-	private static final String INCREASING_ORDER = "2";
-	private static final String DECREASING_ORDER = "3";
-	private static final String QUIT = "4";
-	private static final String WARNING_MESSAGE = "Incorrect Input!";
+	final private static String INPUT = "1";
+	final private static String INCREASING_ORDER = "2";
+	final private static String DECREASING_ORDER = "3";
+	final private static String QUIT = "4";
+	final private static String WARNING_MESSAGE = "INCORRECT INPUT!";
+	private ArrayList<Integer> numberList = new ArrayList<Integer>();
+	private int numberOfNumbers;
+	private String[] numberStrings;
 	
 	public static void main(String[] args) throws IOException {
+		Sorter sorter = new Sorter();
 		String answer = new String();
 		while (!answer.equals(QUIT)) {
-			displayMenu();
+			sorter.displayMenu();
 			answer = reader.readLine();
-			if (isInvalid(answer))
+			if (sorter.isInvalid(answer))
 				System.out.println(WARNING_MESSAGE);
 			else
-				executeMenu(answer);
+				sorter.executeMenu(answer);
 		}
 	}
 	
-	private static void displayMenu() {
+	private void displayMenu() {
 		System.out.println("\n[ ID: 1416365 ]\n[ Name: ÀÌÈ¿Á¤]\n");
 		System.out.println("1. Input numbers");
 		System.out.println("2. Print numbers in increasing order");
@@ -35,7 +36,7 @@ public class Sorter {
 		System.out.print("4. Quit\n\n> ");
 	}
 	
-	private static boolean isInvalid(String answer) {
+	private boolean isInvalid(String answer) {
 		try {
 			int answerNumber = Integer.parseInt(answer);
 			if (isNotInRange(answerNumber))
@@ -47,14 +48,14 @@ public class Sorter {
 		}
 	}
 	
-	private static boolean isNotInRange(int answerNumber) {
+	private boolean isNotInRange(int answerNumber) {
 		if (answerNumber < 0 || answerNumber > 4)
 			return true;
 		else
 			return false;
 	}
 	
-	private static void executeMenu(String answer) throws IOException {
+	private void executeMenu(String answer) throws IOException {
 		if (answer.equals(INPUT))
 			receiveAndSetInput();
 		else if (answer.equals(INCREASING_ORDER)) {
@@ -67,7 +68,7 @@ public class Sorter {
 		}
 	}
 	
-	private static void receiveAndSetInput() throws IOException {
+	private void receiveAndSetInput() throws IOException {
 		try {
 			receiveVariables();
 			setInputNumbers();
@@ -76,7 +77,7 @@ public class Sorter {
 		}
 	}
 	
-	private static void receiveVariables() throws NumberFormatException, IOException {
+	private void receiveVariables() throws NumberFormatException, IOException {
 		System.out.print("> The number of numbers: ");
 		numberOfNumbers = Integer.parseInt(reader.readLine());
 		System.out.print("> numbers: ");
@@ -84,7 +85,7 @@ public class Sorter {
 		numberStrings = numberString.split(" ");
 	}
 	
-	private static void setInputNumbers() {
+	private void setInputNumbers() {
 		numberList = new ArrayList<Integer>();
 		if (numberStrings.length != numberOfNumbers) {
 			System.out.println(WARNING_MESSAGE);
@@ -96,12 +97,12 @@ public class Sorter {
 		}
 	}
 	
-	private static void sortIncreasingOrder() {
+	private void sortIncreasingOrder() {
 		if (!numberList.isEmpty())
 			bubbleSort();
 	}
 	
-	private static void bubbleSort() {
+	private void bubbleSort() {
 		for (int i = 0 ; i < numberList.size() ; i++) {
 			for (int j = i ; j < numberList.size() ; j++) {
 				if (numberList.get(i) > numberList.get(j))
@@ -110,19 +111,19 @@ public class Sorter {
 		}
 	}
 	
-	private static void swapNumbersOfIndex(int firstIndex, int secondIndex) {
+	private void swapNumbersOfIndex(int firstIndex, int secondIndex) {
 		int tempNumber = numberList.get(firstIndex);
 		int secondNumber = numberList.get(secondIndex);
 		numberList.set(firstIndex, secondNumber);
 		numberList.set(secondIndex, tempNumber);
 	}
 
-	private static void sortDecreasingOrder() {
+	private void sortDecreasingOrder() {
 		sortIncreasingOrder();
 		Collections.reverse(numberList);
 	}
 	
-	private static void printSortedNumbers() {
+	private void printSortedNumbers() {
 		for (int number : numberList)
 			System.out.print(number + " ");
 	}
