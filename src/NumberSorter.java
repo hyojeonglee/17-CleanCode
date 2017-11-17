@@ -33,8 +33,8 @@ public class NumberSorter {
 	
 	private void executeBy(String selectedMenu) throws IOException {
 		if (selectedMenu.equals(INPUT)) {
-			setNumberOfNumbers();
-			setNumberList();
+			receiveNumberOfNumbers();
+			receiveNumberList();
 		}
 		else if (selectedMenu.equals(INCREASING_ORDER)) {
 			sortIncreasingOrder();
@@ -46,12 +46,12 @@ public class NumberSorter {
 		}
 	}
 	
-	private void setNumberOfNumbers() throws IOException {
+	private void receiveNumberOfNumbers() throws IOException {
 		System.out.print("> The number of numbers: ");
 		numberOfNumbers = Integer.parseInt(reader.readLine());
 	}
 	
-	private void setNumberList() throws IOException {
+	private void receiveNumberList() throws IOException {
 		numberList = new ArrayList<Integer>();
 		System.out.print("> numbers: ");
 		String stringOfNumbers = reader.readLine();
