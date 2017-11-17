@@ -91,5 +91,6 @@ public class NumberSorter {
 	private void printSortedNumbers() {
 		for (int number : numberList)
 			System.out.print(number + " ");
+		System.out.println();
 	}
 }
