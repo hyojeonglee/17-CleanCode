@@ -39,8 +39,10 @@ public class NumberSorter {
 	}
 	
 	private void executeBy(String selectedMenu) throws IOException {
-		if (selectedMenu.equals(INPUT))
-			receiveAndSetInput();
+		if (selectedMenu.equals(INPUT)) {
+			setNumberOfNumbers();
+			setNumberList();
+		}
 		else if (selectedMenu.equals(INCREASING_ORDER)) {
 			sortIncreasingOrder();
 			printSortedNumbers();
@@ -51,17 +53,16 @@ public class NumberSorter {
 		}
 	}
 	
-	private void receiveAndSetInput() throws IOException {
+	private void setNumberOfNumbers() throws IOException {
 		System.out.print("> The number of numbers: ");
 		numberOfNumbers = Integer.parseInt(reader.readLine());
-		receiveAndSetInputNumbers();
 	}
 	
-	private void receiveAndSetInputNumbers() throws IOException {
+	private void setNumberList() throws IOException {
 		numberList = new ArrayList<Integer>();
 		System.out.print("> numbers: ");
-		String numberString = reader.readLine();
-		String[] numberStrings = numberString.split(" ");
+		String stringOfNumbers = reader.readLine();
+		String[] numberStrings = stringOfNumbers.split(" ");
 		for (int i = 0 ; i < numberOfNumbers ; i++) {
 			int number = Integer.parseInt(numberStrings[i]);
 			numberList.add(number);
