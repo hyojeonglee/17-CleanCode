@@ -4,28 +4,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.io.IOException;
 
-public class Sorter {
+public class NumberSorter {
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	final private static String INPUT = "1";
 	final private static String INCREASING_ORDER = "2";
 	final private static String DECREASING_ORDER = "3";
 	final private static String QUIT = "4";
-	final private static String WARNING_MESSAGE = "INCORRECT INPUT!";
 	private ArrayList<Integer> numberList = new ArrayList<Integer>();
 	private int numberOfNumbers;
-	private String[] numberStrings;
 	
 	public static void main(String[] args) throws IOException {
-		Sorter sorter = new Sorter();
-		String answer = new String();
-		while (!answer.equals(QUIT)) {
+		NumberSorter sorter = new NumberSorter();
+		String selectedMenu = new String();
+		while (sorter.isNotQuitMenu(selectedMenu)) {
 			sorter.displayMenu();
-			answer = reader.readLine();
-			if (sorter.isInvalid(answer))
-				System.out.println(WARNING_MESSAGE);
-			else
-				sorter.executeMenu(answer);
+			selectedMenu = reader.readLine();
+			sorter.executeBy(selectedMenu);
 		}
+	}
+	
+	private boolean isNotQuitMenu(String selectedMenu) {
+		if (selectedMenu != QUIT)
+			return true;
+		else
+			return false;
 	}
 	
 	private void displayMenu() {
@@ -36,61 +38,30 @@ public class Sorter {
 		System.out.print("4. Quit\n\n> ");
 	}
 	
-	private boolean isInvalid(String answer) {
-		try {
-			int answerNumber = Integer.parseInt(answer);
-			if (isNotInRange(answerNumber))
-				return true;
-			else
-				return false;
-		} catch (NumberFormatException exception) {
-			return true;
-		}
-	}
-	
-	private boolean isNotInRange(int answerNumber) {
-		if (answerNumber < 1 || answerNumber > 4)
-			return true;
-		else
-			return false;
-	}
-	
-	private void executeMenu(String answer) throws IOException {
-		if (answer.equals(INPUT))
+	private void executeBy(String selectedMenu) throws IOException {
+		if (selectedMenu.equals(INPUT))
 			receiveAndSetInput();
-		else if (answer.equals(INCREASING_ORDER)) {
+		else if (selectedMenu.equals(INCREASING_ORDER)) {
 			sortIncreasingOrder();
 			printSortedNumbers();
 		}
-		else if (answer.equals(DECREASING_ORDER)) {
+		else if (selectedMenu.equals(DECREASING_ORDER)) {
 			sortDecreasingOrder();
 			printSortedNumbers();
 		}
 	}
 	
 	private void receiveAndSetInput() throws IOException {
-		try {
-			receiveVariables();
-			setInputNumbers();
-		} catch (NumberFormatException exception) {
-			System.out.println(WARNING_MESSAGE);
-		}
-	}
-	
-	private void receiveVariables() throws NumberFormatException, IOException {
 		System.out.print("> The number of numbers: ");
 		numberOfNumbers = Integer.parseInt(reader.readLine());
-		System.out.print("> numbers: ");
-		String numberString = reader.readLine();
-		numberStrings = numberString.split(" ");
+		receiveAndSetInputNumbers();
 	}
 	
-	private void setInputNumbers() {
+	private void receiveAndSetInputNumbers() throws IOException {
 		numberList = new ArrayList<Integer>();
-		if (numberStrings.length != numberOfNumbers) {
-			System.out.println(WARNING_MESSAGE);
-			return;
-		}
+		System.out.print("> numbers: ");
+		String numberString = reader.readLine();
+		String[] numberStrings = numberString.split(" ");
 		for (int i = 0 ; i < numberOfNumbers ; i++) {
 			int number = Integer.parseInt(numberStrings[i]);
 			numberList.add(number);
@@ -106,12 +77,12 @@ public class Sorter {
 		for (int i = 0 ; i < numberList.size() ; i++) {
 			for (int j = i ; j < numberList.size() ; j++) {
 				if (numberList.get(i) > numberList.get(j))
-					swapNumbersOfIndex(i, j);
+					swapNumbersByIndex(i, j);
 			}
 		}
 	}
 	
-	private void swapNumbersOfIndex(int firstIndex, int secondIndex) {
+	private void swapNumbersByIndex(int firstIndex, int secondIndex) {
 		int tempNumber = numberList.get(firstIndex);
 		int secondNumber = numberList.get(secondIndex);
 		numberList.set(firstIndex, secondNumber);
