@@ -16,18 +16,11 @@ public class NumberSorter {
 	public static void main(String[] args) throws IOException {
 		NumberSorter sorter = new NumberSorter();
 		String selectedMenu = new String();
-		while (sorter.isNotQuitMenu(selectedMenu)) {
+		while (!selectedMenu.equals(QUIT)) {
 			sorter.displayMenu();
 			selectedMenu = reader.readLine();
 			sorter.executeBy(selectedMenu);
 		}
-	}
-	
-	private boolean isNotQuitMenu(String selectedMenu) {
-		if (selectedMenu != QUIT)
-			return true;
-		else
-			return false;
 	}
 	
 	private void displayMenu() {

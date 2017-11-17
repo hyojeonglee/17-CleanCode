@@ -13,7 +13,7 @@ public class Sorter {
 	final private static String WARNING_MESSAGE = "INCORRECT INPUT!";
 	private ArrayList<Integer> numberList = new ArrayList<Integer>();
 	private int numberOfNumbers;
-	private String[] numberStrings;
+	private String[] numberStrings; // TODO
 	
 	public static void main(String[] args) throws IOException {
 		Sorter sorter = new Sorter();
