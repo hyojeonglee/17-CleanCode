@@ -6,9 +6,9 @@ import java.io.IOException;
 
 public class NumberSorter {
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	final private static String INPUT = "1";
-	final private static String INCREASING_ORDER = "2";
-	final private static String DECREASING_ORDER = "3";
+	final private static String INPUT_NUMBERS = "1";
+	final private static String PRINT_INCREASING_ORDER = "2";
+	final private static String PRINT_DECREASING_ORDER = "3";
 	final private static String QUIT = "4";
 	private ArrayList<Integer> numberList = new ArrayList<Integer>();
 	private int numberOfNumbers;
@@ -19,7 +19,7 @@ public class NumberSorter {
 		while (!selectedMenu.equals(QUIT)) {
 			sorter.displayMenu();
 			selectedMenu = reader.readLine();
-			sorter.executeBy(selectedMenu);
+			sorter.executeMenuBy(selectedMenu);
 		}
 	}
 	
@@ -31,16 +31,16 @@ public class NumberSorter {
 		System.out.print("4. Quit\n\n> ");
 	}
 	
-	private void executeBy(String selectedMenu) throws IOException {
-		if (selectedMenu.equals(INPUT)) {
+	private void executeMenuBy(String selectedMenu) throws IOException {
+		if (selectedMenu.equals(INPUT_NUMBERS)) {
 			receiveNumberOfNumbers();
-			receiveNumberList();
+			receiveAndMakeNumberList();
 		}
-		else if (selectedMenu.equals(INCREASING_ORDER)) {
+		else if (selectedMenu.equals(PRINT_INCREASING_ORDER)) {
 			sortIncreasingOrder();
 			printSortedNumbers();
 		}
-		else if (selectedMenu.equals(DECREASING_ORDER)) {
+		else if (selectedMenu.equals(PRINT_DECREASING_ORDER)) {
 			sortDecreasingOrder();
 			printSortedNumbers();
 		}
@@ -51,7 +51,7 @@ public class NumberSorter {
 		numberOfNumbers = Integer.parseInt(reader.readLine());
 	}
 	
-	private void receiveNumberList() throws IOException {
+	private void receiveAndMakeNumberList() throws IOException {
 		numberList = new ArrayList<Integer>();
 		System.out.print("> numbers: ");
 		String stringOfNumbers = reader.readLine();
@@ -68,8 +68,8 @@ public class NumberSorter {
 	}
 	
 	private void bubbleSort() {
-		for (int i = 0 ; i < numberList.size() ; i++) {
-			for (int j = i ; j < numberList.size() ; j++) {
+		for (int i = 0 ; i < numberOfNumbers ; i++) {
+			for (int j = i ; j < numberOfNumbers ; j++) {
 				if (numberList.get(i) > numberList.get(j))
 					swapNumbersByIndex(i, j);
 			}
