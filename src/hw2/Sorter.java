@@ -5,7 +5,8 @@ import java.util.Collections;
 
 abstract class Sorter {
 	private int numberOfData;
-	protected ArrayList<String> dataList;
+	private ArrayList<String> dataList;
+	private ArrayList<Integer> sortableList;
 	
 	public Sorter() {
 		this.numberOfData = 0;
@@ -16,9 +17,23 @@ abstract class Sorter {
 		this.numberOfData = numberOfData;
 		this.dataList = dataList;
 	}
+	
+	ArrayList<String> getDataList() {
+		return this.dataList;
+	}
+	
+	ArrayList<Integer> getSortableList() {
+		return this.sortableList;
+	}
+	
+	void sortIncreasingOrder() {
+		sortableList = convertStringToIntList();
+		bubbleSort();
+		dataList = convertIntToStringList();
+	}
 
-	abstract protected void sortIncreasingOrder();
-	abstract protected ArrayList<Integer> convertStringToIntegerList();
+	abstract protected ArrayList<Integer> convertStringToIntList();
+	abstract protected ArrayList<String> convertIntToStringList();
 	
 	void sortDecreasingOrder() {
 		sortIncreasingOrder();
@@ -31,20 +46,19 @@ abstract class Sorter {
 		System.out.println();
 	}
 	
-	protected ArrayList<Integer> bubbleSort(ArrayList<Integer> dataList) {
+	private void bubbleSort() {
 		for (int i = 0 ; i < numberOfData ; i++) {
 			for (int j = i ; j < numberOfData ; j++) {
-				if (dataList.get(i) > dataList.get(j))
-					swap(dataList, i, j);
+				if (sortableList.get(i) > sortableList.get(j))
+					swap(i, j);
 			}
 		}
-		return dataList;
 	}
 	
-	private void swap(ArrayList<Integer> dataList, int firstIndex, int secondIndex) {
-		int tempData = dataList.get(firstIndex);
-		int secondData = dataList.get(secondIndex);
-		dataList.set(firstIndex, secondData);
-		dataList.set(secondIndex, tempData);
+	private void swap(int firstIndex, int secondIndex) {
+		int tempData = sortableList.get(firstIndex);
+		int secondData = sortableList.get(secondIndex);
+		sortableList.set(firstIndex, secondData);
+		sortableList.set(secondIndex, tempData);
 	}
 }

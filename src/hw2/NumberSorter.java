@@ -8,23 +8,23 @@ class NumberSorter extends Sorter {
 	}
 	
 	@Override
-	protected void sortIncreasingOrder() {
-		ArrayList<Integer> numberList = convertStringToIntegerList();
-		numberList = bubbleSort(numberList);
-		dataList.clear();
-		for (int number : numberList) {
-			String data = Integer.toString(number);
-			dataList.add(data);
-		}
-	}
-
-	@Override
-	protected ArrayList<Integer> convertStringToIntegerList() {
+	protected ArrayList<Integer> convertStringToIntList() {
 		ArrayList<Integer> numberList = new ArrayList<Integer>();
-		for (String data : dataList) {
+		for (String data : super.getDataList()) {
 			int number = Integer.parseInt(data);
 			numberList.add(number);
 		}
 		return numberList;
 	}
+	
+	@Override
+	protected ArrayList<String> convertIntToStringList() {
+		ArrayList<String> dataList = new ArrayList<String>();
+		for (int number : super.getSortableList()) {
+			String data = Integer.toString(number);
+			dataList.add(data);
+		}
+		return dataList;
+	}
+
 }

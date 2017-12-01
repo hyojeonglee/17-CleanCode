@@ -8,21 +8,9 @@ class CharacterSorter extends Sorter {
 	}
 
 	@Override
-	protected void sortIncreasingOrder() {
-		ArrayList<Integer> asciiCodeList = convertStringToIntegerList();
-		asciiCodeList = bubbleSort(asciiCodeList);
-		dataList.clear();
-		for (int code : asciiCodeList) {
-			char c = (char) code;
-			String data = Character.toString(c);
-			dataList.add(data);
-		}
-	}
-
-	@Override
-	protected ArrayList<Integer> convertStringToIntegerList() {
+	protected ArrayList<Integer> convertStringToIntList() {
 		ArrayList<Integer> asciiCodeList = new ArrayList<Integer>();
-		for (String data : dataList) {
+		for (String data : super.getDataList()) {
 			char[] chars = data.toCharArray();
 			for (char c : chars) {
 				int code = (int) c;
@@ -31,4 +19,16 @@ class CharacterSorter extends Sorter {
 		}
 		return asciiCodeList;
 	}
+	
+	@Override
+	protected ArrayList<String> convertIntToStringList() {
+		ArrayList<String> dataList = new ArrayList<String>();
+		for (int code : super.getSortableList()) {
+			char c = (char) code;
+			String data = Character.toString(c);
+			dataList.add(data);
+		}
+		return dataList;
+	}
+
 }

@@ -12,11 +12,19 @@ public class SorterRunner {
 	public static void main(String[] args) throws IOException {
 		SorterRunner runner = new SorterRunner();
 		String selectedMenu = new String();
-		while (!selectedMenu.equals(Option.QUIT.getCode())) {
+		while (runner.isNotQuit(selectedMenu)) {
 			runner.displayMenu();
 			selectedMenu = runner.reader.readLine();
 			runner.executeBy(selectedMenu);
 		}
+	}
+	
+	private boolean isNotQuit(String selectedMenu) {
+		String quitCode = Option.QUIT.getCode();
+		if (!selectedMenu.equals(quitCode))
+			return true;
+		else
+			return false;
 	}
 	
 	private void displayMenu() {
@@ -56,7 +64,6 @@ public class SorterRunner {
 	}
 	
 	private int receiveNumberOfData() throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print("> The number of data: ");
 		int numberOfData = Integer.parseInt(reader.readLine());
 		return numberOfData;
