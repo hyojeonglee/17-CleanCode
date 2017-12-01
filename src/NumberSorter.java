@@ -12,6 +12,7 @@ public class NumberSorter {
 	final private static String QUIT = "4";
 	private ArrayList<Integer> numberList = new ArrayList<Integer>();
 	private int numberOfNumbers;
+	private String typeOfData;
 	
 	public static void main(String[] args) throws IOException {
 		NumberSorter sorter = new NumberSorter();
@@ -33,6 +34,7 @@ public class NumberSorter {
 	
 	private void executeMenuBy(String selectedMenu) throws IOException {
 		if (selectedMenu.equals(INPUT_NUMBERS)) {
+			selectTypeOfData();
 			receiveNumberOfNumbers();
 			receiveAndMakeNumberList();
 		}
@@ -44,6 +46,11 @@ public class NumberSorter {
 			sortDecreasingOrder();
 			printSortedNumbers();
 		}
+	}
+	
+	private void selectTypeOfData() throws IOException {
+		System.out.print("> The type of data (n or c): ");
+		typeOfData = reader.readLine();
 	}
 	
 	private void receiveNumberOfNumbers() throws IOException {
