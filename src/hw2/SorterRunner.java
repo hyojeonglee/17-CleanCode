@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 public class SorterRunner {
-	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private Sorter sorter;
 	
 	public static void main(String[] args) throws IOException {
@@ -14,13 +14,13 @@ public class SorterRunner {
 		String selectedMenu = new String();
 		while (runner.isNotQuit(selectedMenu)) {
 			runner.displayMenu();
-			selectedMenu = runner.reader.readLine();
+			selectedMenu = reader.readLine();
 			runner.executeBy(selectedMenu);
 		}
 	}
 	
 	private boolean isNotQuit(String selectedMenu) {
-		String quitCode = Option.QUIT.getCode();
+		String quitCode = Menu.QUIT.getCode();
 		if (!selectedMenu.equals(quitCode))
 			return true;
 		else
@@ -36,21 +36,20 @@ public class SorterRunner {
 	}
 	
 	private void executeBy(String selectedMenu) throws IOException {
-		Option option = Option.getOptionBy(selectedMenu);
-		switch (option) {
+		Menu menu = Menu.getMenuBy(selectedMenu);
+		ArrayList<String> sortedList = new ArrayList<String>();
+		switch (menu) {
 			case SET_INPUT_DATA :
 				String typeOfData = receiveTypeOfData();
-				int numberOfData = receiveNumberOfData();
-				ArrayList<String> dataList = receiveAndMakeDataList(numberOfData);
-				sorter = setObjectBy(typeOfData, numberOfData, dataList);
+				receiveDataAndSetSorterBy(typeOfData);
 				break;
 			case PRINT_INCREASING_ORDER :
-				sorter.sortIncreasingOrder();
-				sorter.printSortedData();
+				sortedList = sorter.sortIncreasingOrder();
+				System.out.println(sorter.toString());
 				break;
 			case PRINT_DECREASING_ORDER :
-				sorter.sortDecreasingOrder();
-				sorter.printSortedData();
+				sortedList = sorter.sortDecreasingOrder();
+				System.out.println(sorter.toString());
 				break;
 			default:
 				break;
@@ -63,17 +62,28 @@ public class SorterRunner {
 		return typeOfData;
 	}
 	
+	private void receiveDataAndSetSorterBy(String typeOfData) throws IOException {
+		int numberOfData = receiveNumberOfData();
+		String[] dataStrings = receiveData();
+		ArrayList<String> dataList = convertStringsToListBy(numberOfData, dataStrings);
+		setSorterBy(typeOfData, numberOfData, dataList);
+	}
+	
 	private int receiveNumberOfData() throws IOException {
 		System.out.print("> The number of data: ");
 		int numberOfData = Integer.parseInt(reader.readLine());
 		return numberOfData;
 	}
 	
-	private ArrayList<String> receiveAndMakeDataList(int numberOfData) throws IOException {
-		ArrayList<String> dataList = new ArrayList<String>();
+	private String[] receiveData() throws IOException {
 		System.out.print("> data: ");
 		String stringOfData = reader.readLine();
 		String[] dataStrings = stringOfData.split(" ");
+		return dataStrings;
+	}
+	
+	private ArrayList<String> convertStringsToListBy(int numberOfData, String[] dataStrings) throws IOException {
+		ArrayList<String> dataList = new ArrayList<String>();
 		for (int i = 0 ; i < numberOfData ; i++) {
 			String data = dataStrings[i];
 			dataList.add(data);
@@ -81,8 +91,7 @@ public class SorterRunner {
 		return dataList;
 	}
 	
-	private Sorter setObjectBy(String typeOfData, int numberOfData, ArrayList<String> dataList) {
-		Sorter sorter = null;
+	private void setSorterBy(String typeOfData, int numberOfData, ArrayList<String> dataList) {
 		Option option = Option.getOptionBy(typeOfData);
 		switch (option) {
 			case NUMBER :
@@ -94,7 +103,6 @@ public class SorterRunner {
 			default:
 				break;
 		}
-		return sorter;
 	}
 }
 

@@ -8,27 +8,38 @@ class CharacterSorter extends Sorter {
 	}
 
 	@Override
-	protected ArrayList<Integer> convertStringToIntList() {
+	protected SortableList convertDataToSortableList(ArrayList<String> dataList) {
+		SortableList sortableList = super.getSortableList();
 		ArrayList<Integer> asciiCodeList = new ArrayList<Integer>();
-		for (String data : super.getDataList()) {
-			char[] chars = data.toCharArray();
-			for (char c : chars) {
-				int code = (int) c;
-				asciiCodeList.add(code);
-			}
+		for (String data : dataList) {
+			int code = convertToASCIICode(data);
+			asciiCodeList.add(code);
 		}
-		return asciiCodeList;
+		sortableList.setSortableList(asciiCodeList);
+		return sortableList;
+	}
+	
+	private int convertToASCIICode(String data) {
+		int code = 0;
+		char[] chars = data.toCharArray();
+		for (char c : chars)
+			code = (int) c;
+		return code;
 	}
 	
 	@Override
-	protected ArrayList<String> convertIntToStringList() {
+	protected ArrayList<String> convertSortableToDataList(SortableList sortedList) {
 		ArrayList<String> dataList = new ArrayList<String>();
-		for (int code : super.getSortableList()) {
-			char c = (char) code;
-			String data = Character.toString(c);
+		for (int code : sortedList.getSortableList()) {
+			String data = convertASCIIToString(code);
 			dataList.add(data);
 		}
 		return dataList;
 	}
-
+	
+	private String convertASCIIToString(int code) {
+		char c = (char) code;
+		String data = Character.toString(c);
+		return data;
+	}
 }

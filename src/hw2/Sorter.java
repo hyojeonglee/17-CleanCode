@@ -6,59 +6,41 @@ import java.util.Collections;
 abstract class Sorter {
 	private int numberOfData;
 	private ArrayList<String> dataList;
-	private ArrayList<Integer> sortableList;
+	private SortableList sortableList;
 	
-	public Sorter() {
-		this.numberOfData = 0;
-		this.dataList = new ArrayList<String>();
-	}
+	abstract protected SortableList convertDataToSortableList(ArrayList<String> dataList);
+	
+	abstract protected ArrayList<String> convertSortableToDataList(SortableList sortableList);
 	
 	public Sorter(int numberOfData, ArrayList<String> dataList) {
 		this.numberOfData = numberOfData;
 		this.dataList = dataList;
+		this.sortableList = new SortableList(this.numberOfData);
 	}
 	
-	ArrayList<String> getDataList() {
-		return this.dataList;
-	}
-	
-	ArrayList<Integer> getSortableList() {
+	public SortableList getSortableList() {
 		return this.sortableList;
 	}
+
+	public ArrayList<String> sortIncreasingOrder() {
+		sortableList = convertDataToSortableList(dataList);
+		ArrayList<Integer> sortedList = sortableList.bubbleSort();
+		sortableList.setSortableList(sortedList);
+		dataList = convertSortableToDataList(sortableList);
+		return dataList;
+	}
 	
-	void sortIncreasingOrder() {
-		sortableList = convertStringToIntList();
-		bubbleSort();
-		dataList = convertIntToStringList();
+	public ArrayList<String> sortDecreasingOrder() {
+		dataList = sortIncreasingOrder();
+		Collections.reverse(dataList);
+		return dataList;
 	}
 
-	abstract protected ArrayList<Integer> convertStringToIntList();
-	abstract protected ArrayList<String> convertIntToStringList();
-	
-	void sortDecreasingOrder() {
-		sortIncreasingOrder();
-		Collections.reverse(dataList);
-	}
-	
-	void printSortedData() {
+	@Override
+	public String toString() {
+		String formattedString = new String();
 		for (String data : this.dataList)
-			System.out.print(data + " ");
-		System.out.println();
-	}
-	
-	private void bubbleSort() {
-		for (int i = 0 ; i < numberOfData ; i++) {
-			for (int j = i ; j < numberOfData ; j++) {
-				if (sortableList.get(i) > sortableList.get(j))
-					swap(i, j);
-			}
-		}
-	}
-	
-	private void swap(int firstIndex, int secondIndex) {
-		int tempData = sortableList.get(firstIndex);
-		int secondData = sortableList.get(secondIndex);
-		sortableList.set(firstIndex, secondData);
-		sortableList.set(secondIndex, tempData);
+			formattedString += data + " ";
+		return formattedString;
 	}
 }

@@ -8,19 +8,21 @@ class NumberSorter extends Sorter {
 	}
 	
 	@Override
-	protected ArrayList<Integer> convertStringToIntList() {
+	protected SortableList convertDataToSortableList(ArrayList<String> dataList) {
+		SortableList sortableList = super.getSortableList();
 		ArrayList<Integer> numberList = new ArrayList<Integer>();
-		for (String data : super.getDataList()) {
+		for (String data : dataList) {
 			int number = Integer.parseInt(data);
 			numberList.add(number);
 		}
-		return numberList;
+		sortableList.setSortableList(numberList);
+		return sortableList;
 	}
 	
 	@Override
-	protected ArrayList<String> convertIntToStringList() {
+	protected ArrayList<String> convertSortableToDataList(SortableList sortedList) {
 		ArrayList<String> dataList = new ArrayList<String>();
-		for (int number : super.getSortableList()) {
+		for (int number : sortedList.getSortableList()) {
 			String data = Integer.toString(number);
 			dataList.add(data);
 		}
