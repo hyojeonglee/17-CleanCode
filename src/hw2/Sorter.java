@@ -35,12 +35,4 @@ abstract class Sorter {
 		Collections.reverse(dataList);
 		return dataList;
 	}
-
-	@Override
-	public String toString() {
-		String formattedString = new String();
-		for (String data : this.dataList)
-			formattedString += data + " ";
-		return formattedString;
-	}
 }

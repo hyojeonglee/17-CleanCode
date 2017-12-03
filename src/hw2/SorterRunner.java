@@ -36,8 +36,8 @@ public class SorterRunner {
 	}
 	
 	private void executeBy(String selectedMenu) throws IOException {
-		Menu menu = Menu.getMenuBy(selectedMenu);
 		ArrayList<String> sortedList = new ArrayList<String>();
+		Menu menu = Menu.getMenuBy(selectedMenu);
 		switch (menu) {
 			case SET_INPUT_DATA :
 				String typeOfData = receiveTypeOfData();
@@ -45,11 +45,11 @@ public class SorterRunner {
 				break;
 			case PRINT_INCREASING_ORDER :
 				sortedList = sorter.sortIncreasingOrder();
-				System.out.println(sorter.toString());
+				print(sortedList);
 				break;
 			case PRINT_DECREASING_ORDER :
 				sortedList = sorter.sortDecreasingOrder();
-				System.out.println(sorter.toString());
+				print(sortedList);
 				break;
 			default:
 				break;
@@ -64,7 +64,8 @@ public class SorterRunner {
 	
 	private void receiveDataAndSetSorterBy(String typeOfData) throws IOException {
 		int numberOfData = receiveNumberOfData();
-		String[] dataStrings = receiveData();
+		String stringOfData = receiveData();
+		String[] dataStrings = convertToArrayFrom(stringOfData);
 		ArrayList<String> dataList = convertStringsToListBy(numberOfData, dataStrings);
 		setSorterBy(typeOfData, numberOfData, dataList);
 	}
@@ -75,14 +76,19 @@ public class SorterRunner {
 		return numberOfData;
 	}
 	
-	private String[] receiveData() throws IOException {
+	private String receiveData() throws IOException {
 		System.out.print("> data: ");
 		String stringOfData = reader.readLine();
+		return stringOfData;
+	}
+	
+	private String[] convertToArrayFrom(String stringOfData) {
 		String[] dataStrings = stringOfData.split(" ");
 		return dataStrings;
 	}
 	
-	private ArrayList<String> convertStringsToListBy(int numberOfData, String[] dataStrings) throws IOException {
+	// TODO : modify Qualifier to private
+	ArrayList<String> convertStringsToListBy(int numberOfData, String[] dataStrings) {
 		ArrayList<String> dataList = new ArrayList<String>();
 		for (int i = 0 ; i < numberOfData ; i++) {
 			String data = dataStrings[i];
@@ -103,6 +109,12 @@ public class SorterRunner {
 			default:
 				break;
 		}
+	}
+	
+	private void print(ArrayList<String> sortedList) {
+		for (String data : sortedList)
+			System.out.print(data + " ");
+		System.out.println();
 	}
 }
 

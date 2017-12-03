@@ -12,14 +12,14 @@ class CharacterSorter extends Sorter {
 		SortableList sortableList = super.getSortableList();
 		ArrayList<Integer> asciiCodeList = new ArrayList<Integer>();
 		for (String data : dataList) {
-			int code = convertToASCIICode(data);
+			int code = convertStringToASCII(data);
 			asciiCodeList.add(code);
 		}
 		sortableList.setSortableList(asciiCodeList);
 		return sortableList;
 	}
 	
-	private int convertToASCIICode(String data) {
+	private int convertStringToASCII(String data) {
 		int code = 0;
 		char[] chars = data.toCharArray();
 		for (char c : chars)
