@@ -12,14 +12,14 @@ public class SorterRunner {
 	public static void main(String[] args) throws IOException {
 		SorterRunner runner = new SorterRunner();
 		String selectedMenu = new String();
-		while (runner.isNotQuit(selectedMenu)) {
-			runner.displayMenu();
+		while (isNotQuit(selectedMenu)) {
+			displayMenu();
 			selectedMenu = reader.readLine();
 			runner.executeBy(selectedMenu);
 		}
 	}
 	
-	private boolean isNotQuit(String selectedMenu) {
+	private static boolean isNotQuit(String selectedMenu) {
 		String quitCode = Menu.QUIT.getCode();
 		if (!selectedMenu.equals(quitCode))
 			return true;
@@ -27,7 +27,7 @@ public class SorterRunner {
 			return false;
 	}
 	
-	private void displayMenu() {
+	private static void displayMenu() {
 		System.out.println("[ ID: 1416365 ]\n[ Name: ¿Ã»ø¡§]\n");
 		System.out.println("1. Input data");
 		System.out.println("2. Print data in increasing order");
