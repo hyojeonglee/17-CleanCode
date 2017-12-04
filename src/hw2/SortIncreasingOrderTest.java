@@ -12,6 +12,8 @@ public class SortIncreasingOrderTest {
 	private ArrayList<String> dataList;
 	private Sorter sorter;
 	
+	// TODO : 테스트 변수들을 final 변수로 위로 빼주기
+	
 	@Test
 	public void testSortNumber() {
 		numberOfData = 5;

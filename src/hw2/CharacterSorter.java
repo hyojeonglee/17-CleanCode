@@ -2,6 +2,8 @@ package hw2;
 
 import java.util.ArrayList;
 
+import javax.xml.stream.events.Characters;
+
 class CharacterSorter extends Sorter {
 	public CharacterSorter(int numberOfData, ArrayList<String> dataList) {
 		super(numberOfData, dataList);
@@ -12,34 +14,34 @@ class CharacterSorter extends Sorter {
 		SortableList sortableList = super.getSortableList();
 		ArrayList<Integer> asciiCodeList = new ArrayList<Integer>();
 		for (String data : dataList) {
-			int code = convertStringToASCII(data);
-			asciiCodeList.add(code);
+			int asciiCode = convertStringToASCII(data);
+			asciiCodeList.add(asciiCode);
 		}
 		sortableList.setSortableList(asciiCodeList);
 		return sortableList;
 	}
 	
+	// TODO : Is 0 magic number?
 	private int convertStringToASCII(String data) {
-		int code = 0;
-		char[] chars = data.toCharArray();
-		for (char c : chars)
-			code = (int) c;
-		return code;
+		char[] characters = data.toCharArray();
+		char firstCharacter = characters[0];
+		int asciiCode = (int) firstCharacter;
+		return asciiCode;
 	}
 	
 	@Override
 	protected ArrayList<String> convertSortableToDataList(SortableList sortedList) {
 		ArrayList<String> dataList = new ArrayList<String>();
-		for (int code : sortedList.getSortableList()) {
-			String data = convertASCIIToString(code);
+		for (int asciiCode : sortedList.getSortableList()) {
+			String data = convertASCIIToString(asciiCode);
 			dataList.add(data);
 		}
 		return dataList;
 	}
 	
-	private String convertASCIIToString(int code) {
-		char c = (char) code;
-		String data = Character.toString(c);
+	private String convertASCIIToString(int asciiCode) {
+		char character = (char) asciiCode;
+		String data = Character.toString(character);
 		return data;
 	}
 }

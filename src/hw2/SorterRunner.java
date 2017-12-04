@@ -87,8 +87,7 @@ public class SorterRunner {
 		return dataStrings;
 	}
 	
-	// TODO : modify Qualifier to private
-	ArrayList<String> convertStringsToListBy(int numberOfData, String[] dataStrings) {
+	private ArrayList<String> convertStringsToListBy(int numberOfData, String[] dataStrings) {
 		ArrayList<String> dataList = new ArrayList<String>();
 		for (int i = 0 ; i < numberOfData ; i++) {
 			String data = dataStrings[i];

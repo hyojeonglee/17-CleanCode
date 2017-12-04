@@ -3,6 +3,8 @@ package hw2;
 import java.util.ArrayList;
 import java.util.Collections;
 
+// TODO : convert method (abstract) 2개를 여기로 옮길 것인지? (envy 현상 떄문)
+
 public class SortableList {
 	private int numberOfData;
 	private ArrayList<Integer> sortableList;
