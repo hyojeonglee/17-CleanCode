@@ -1,9 +1,4 @@
-package hw2;
-
-import java.util.ArrayList;
-import java.util.Collections;
-
-// TODO : convert method (abstract) 2개를 여기로 옮길 것인지? (envy 현상 떄문)
+import java.util.*;
 
 public class SortableList {
 	private int numberOfData;
@@ -22,7 +17,7 @@ public class SortableList {
 		this.sortableList = sortableList;
 	}
 	
-	public ArrayList<Integer> bubbleSort() {
+	public ArrayList<Integer> bubbleSortIncreasingOrder() {
 		for (int i = 0 ; i < numberOfData ; i++) {
 			for (int j = i ; j < numberOfData ; j++) {
 				if (sortableList.get(i) > sortableList.get(j))

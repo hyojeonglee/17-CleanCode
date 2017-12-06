@@ -1,9 +1,5 @@
-package hw2;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
-import java.io.IOException;
 
 public class SorterRunner {
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -12,16 +8,16 @@ public class SorterRunner {
 	public static void main(String[] args) throws IOException {
 		SorterRunner runner = new SorterRunner();
 		String selectedMenu = new String();
-		while (isNotQuit(selectedMenu)) {
+		while (!isQuit(selectedMenu)) {
 			displayMenu();
 			selectedMenu = reader.readLine();
 			runner.executeBy(selectedMenu);
 		}
 	}
 	
-	private static boolean isNotQuit(String selectedMenu) {
+	private static boolean isQuit(String selectedMenu) {
 		String quitCode = Menu.QUIT.getCode();
-		if (!selectedMenu.equals(quitCode))
+		if (selectedMenu.equals(quitCode))
 			return true;
 		else
 			return false;
@@ -41,15 +37,15 @@ public class SorterRunner {
 		switch (menu) {
 			case SET_INPUT_DATA :
 				String typeOfData = receiveTypeOfData();
-				receiveDataAndSetSorterBy(typeOfData);
+				sorter = receiveDataAndGetSorterBy(typeOfData);
 				break;
 			case PRINT_INCREASING_ORDER :
 				sortedList = sorter.sortIncreasingOrder();
-				print(sortedList);
+				printDataList(sortedList);
 				break;
 			case PRINT_DECREASING_ORDER :
 				sortedList = sorter.sortDecreasingOrder();
-				print(sortedList);
+				printDataList(sortedList);
 				break;
 			default:
 				break;
@@ -62,12 +58,11 @@ public class SorterRunner {
 		return typeOfData;
 	}
 	
-	private void receiveDataAndSetSorterBy(String typeOfData) throws IOException {
+	private Sorter receiveDataAndGetSorterBy(String typeOfData) throws IOException {
 		int numberOfData = receiveNumberOfData();
-		String stringOfData = receiveData();
-		String[] dataStrings = convertToArrayFrom(stringOfData);
-		ArrayList<String> dataList = convertStringsToListBy(numberOfData, dataStrings);
-		setSorterBy(typeOfData, numberOfData, dataList);
+		ArrayList<String> dataList = receiveAndMakeDataListBy(numberOfData);
+		Sorter sorter = setSorterWith(typeOfData, numberOfData, dataList);
+		return sorter;
 	}
 	
 	private int receiveNumberOfData() throws IOException {
@@ -76,10 +71,12 @@ public class SorterRunner {
 		return numberOfData;
 	}
 	
-	private String receiveData() throws IOException {
+	private ArrayList<String> receiveAndMakeDataListBy(int numberOfData) throws IOException {
 		System.out.print("> data: ");
 		String stringOfData = reader.readLine();
-		return stringOfData;
+		String[] dataStrings = convertToArrayFrom(stringOfData);
+		ArrayList<String> dataList = convertArrayToListWith(numberOfData, dataStrings);
+		return dataList;
 	}
 	
 	private String[] convertToArrayFrom(String stringOfData) {
@@ -87,7 +84,7 @@ public class SorterRunner {
 		return dataStrings;
 	}
 	
-	private ArrayList<String> convertStringsToListBy(int numberOfData, String[] dataStrings) {
+	private ArrayList<String> convertArrayToListWith(int numberOfData, String[] dataStrings) {
 		ArrayList<String> dataList = new ArrayList<String>();
 		for (int i = 0 ; i < numberOfData ; i++) {
 			String data = dataStrings[i];
@@ -96,21 +93,19 @@ public class SorterRunner {
 		return dataList;
 	}
 	
-	private void setSorterBy(String typeOfData, int numberOfData, ArrayList<String> dataList) {
+	private Sorter setSorterWith(String typeOfData, int numberOfData, ArrayList<String> dataList) {
 		Option option = Option.getOptionBy(typeOfData);
 		switch (option) {
 			case NUMBER :
-				sorter = new NumberSorter(numberOfData, dataList);
-				break;
+				return new NumberSorter(numberOfData, dataList);
 			case CHARACTER :
-				sorter = new CharacterSorter(numberOfData, dataList);
-				break;
+				return new CharacterSorter(numberOfData, dataList);
 			default:
-				break;
+				return null;
 		}
 	}
 	
-	private void print(ArrayList<String> sortedList) {
+	private void printDataList(ArrayList<String> sortedList) {
 		for (String data : sortedList)
 			System.out.print(data + " ");
 		System.out.println();

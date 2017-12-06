@@ -1,6 +1,4 @@
-package hw2;
-
-public enum Option implements Selectable {
+public enum Option {
 	NUMBER("n"), CHARACTER("c");
 
 	private String code;
@@ -9,7 +7,6 @@ public enum Option implements Selectable {
 		this.code = code;
 	}
 	
-	@Override
 	public String getCode() {
 		return code;
 	}

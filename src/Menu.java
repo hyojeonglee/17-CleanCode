@@ -1,6 +1,4 @@
-package hw2;
-
-public enum Menu implements Selectable {
+public enum Menu {
 	SET_INPUT_DATA("1"), PRINT_INCREASING_ORDER("2"), PRINT_DECREASING_ORDER("3"), QUIT("4");
 	
 	private String code;
@@ -9,7 +7,6 @@ public enum Menu implements Selectable {
 		this.code = code;
 	}
 	
-	@Override
 	public String getCode() {
 		return code;
 	}

@@ -1,8 +1,4 @@
-package hw2;
-
 import java.util.ArrayList;
-
-import javax.xml.stream.events.Characters;
 
 class CharacterSorter extends Sorter {
 	public CharacterSorter(int numberOfData, ArrayList<String> dataList) {
@@ -10,18 +6,15 @@ class CharacterSorter extends Sorter {
 	}
 
 	@Override
-	protected SortableList convertDataToSortableList(ArrayList<String> dataList) {
-		SortableList sortableList = super.getSortableList();
-		ArrayList<Integer> asciiCodeList = new ArrayList<Integer>();
+	protected ArrayList<Integer> convertDataToSortableList(ArrayList<String> dataList) {
+		ArrayList<Integer> sortableAsciiCodeList = new ArrayList<Integer>();
 		for (String data : dataList) {
 			int asciiCode = convertStringToASCII(data);
-			asciiCodeList.add(asciiCode);
+			sortableAsciiCodeList.add(asciiCode);
 		}
-		sortableList.setSortableList(asciiCodeList);
-		return sortableList;
+		return sortableAsciiCodeList;
 	}
 	
-	// TODO : Is 0 magic number?
 	private int convertStringToASCII(String data) {
 		char[] characters = data.toCharArray();
 		char firstCharacter = characters[0];
@@ -30,9 +23,9 @@ class CharacterSorter extends Sorter {
 	}
 	
 	@Override
-	protected ArrayList<String> convertSortableToDataList(SortableList sortedList) {
+	protected ArrayList<String> convertSortableToDataList(ArrayList<Integer> sortedList) {
 		ArrayList<String> dataList = new ArrayList<String>();
-		for (int asciiCode : sortedList.getSortableList()) {
+		for (int asciiCode : sortedList) {
 			String data = convertASCIIToString(asciiCode);
 			dataList.add(data);
 		}
