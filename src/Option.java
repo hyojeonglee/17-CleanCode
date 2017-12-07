@@ -1,19 +1,15 @@
 public enum Option {
 	NUMBER("n"), CHARACTER("c");
 
-	private String code;
+	public final String code;
 	
 	private Option(String code) {
 		this.code = code;
 	}
-	
-	public String getCode() {
-		return code;
-	}
 
 	public static Option getOptionBy(String selectedCode) {
 		for (Option option : Option.values()) {
-			String code = option.getCode();
+			String code = option.code;
 			if (code.equals(selectedCode))
 				return option;
 		}

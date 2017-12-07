@@ -16,7 +16,7 @@ public class SorterRunner {
 	}
 	
 	private static boolean isQuit(String selectedMenu) {
-		String quitCode = Menu.QUIT.getCode();
+		String quitCode = Menu.QUIT.code;
 		if (selectedMenu.equals(quitCode))
 			return true;
 		else
